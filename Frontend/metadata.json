@@ -1,0 +1,6 @@
+{
+  "name": "Precision Commerce",
+  "description": "A minimalist, high-contrast React frontend for the Spring Boot Product & Order Management API. Built with Tailwind CSS and Lucide icons.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

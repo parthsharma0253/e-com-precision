@@ -1,0 +1,41 @@
+name: E-com using GitHub Actions
+run-name: ${{ github.actor }} is testing out GitHub Actions for Java Builds
+on:
+  push:
+    branches:
+      - main
+jobs:
+  Backend-Building-JAR-File:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v6
+
+      - name: Set up JDK 21 for x64
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          architecture: x64
+          cache: maven
+
+      - name: Building the application
+        run: cd SpringEcom && mvn clean package -DskipTests -Dserver.port=${{vars.SERVERPORT}} -Dspring.datasource.hikari.auto-commit=${{vars.HIKARI_AUTO_COMMIT}} -Dspring.jpa.show-sql={{vars.SHOW_SQL}} -Dspring.jpa.hibernate.ddl-auto=${{vars.HIBERNATE_DDL_AUTO}} -Dspring.datasource.driver-class-name={{vars.DRIVER_CLASS_NAME}} -Dspring.datasource.password={{secrets.DATASOURCE_PASSWORD}} -Dspring.datasource.username={{secrets.DB_USERNAME}} -Dspring.datasource.url={{vars.DB_URL}}
+
+  Frontend-Building:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v6
+        
+      - name: Setting up Nodejs
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Installing frontend dependencies
+        run: cd Frontend && npm ci
+
+      - name: Building frontend
+        run: cd Frontend && npm run build
