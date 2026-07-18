@@ -33,6 +33,7 @@ jobs:
         with:
           node-version: '20'
           cache: npm
+          cache-dependency-path: 'Frontend/package-lock.json'
 
       - name: Installing frontend dependencies
         run: cd Frontend && npm ci
