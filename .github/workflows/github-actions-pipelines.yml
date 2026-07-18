@@ -20,7 +20,7 @@ jobs:
           cache: maven
 
       - name: Building the application
-        run: cd SpringEcom && mvn clean package -DskipTests -Dserver.port=${{vars.SERVERPORT}} -Dspring.datasource.hikari.auto-commit=${{vars.HIKARI_AUTO_COMMIT}} -Dspring.jpa.show-sql={{vars.SHOW_SQL}} -Dspring.jpa.hibernate.ddl-auto=${{vars.HIBERNATE_DDL_AUTO}} -Dspring.datasource.driver-class-name={{vars.DRIVER_CLASS_NAME}} -Dspring.datasource.password={{secrets.DATASOURCE_PASSWORD}} -Dspring.datasource.username={{secrets.DB_USERNAME}} -Dspring.datasource.url={{vars.DB_URL}}
+        run: cd SpringEcom && mvn clean package -DskipTests -Dserver.port=${{vars.SERVERPORT}} -Dspring.datasource.hikari.auto-commit=${{vars.HIKARI_AUTO_COMMIT}} -Dspring.jpa.show-sql=${{vars.SHOW_SQL}} -Dspring.jpa.hibernate.ddl-auto=${{vars.HIBERNATE_DDL_AUTO}} -Dspring.datasource.driver-class-name=${{vars.DRIVER_CLASS_NAME}} -Dspring.datasource.password=${{secrets.DATASOURCE_PASSWORD}} -Dspring.datasource.username=${{secrets.DB_USERNAME}} -Dspring.datasource.url=${{vars.DB_URL}}
 
   Frontend-Building:
     runs-on: ubuntu-latest
@@ -29,7 +29,7 @@ jobs:
         uses: actions/checkout@v6
         
       - name: Setting up Nodejs
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: npm
